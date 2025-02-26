@@ -63,12 +63,18 @@ async function getWeather() {
         const data = await response.json();
 
         if (!response.ok) {
+            if (response.status === 401) {
+                throw new Error('Invalid API key. Please check your OpenWeatherMap API key configuration.');
+            } else if (response.status === 403) {
+                throw new Error('API access forbidden. Please check your domain is authorized in OpenWeatherMap.');
+            }
             throw new Error(data.message || 'Failed to fetch weather data');
         }
 
         displayWeatherData(data);
     } catch (error) {
         showError(error.message);
+        console.error('Weather API Error:', error);
     } finally {
         hideLoading();
     }

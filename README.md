@@ -21,6 +21,13 @@ cd weather-app
 2. Set up API key
 - Copy `config.example.js` to `config.js`
 - Replace `YOUR_API_KEY_HERE` with your OpenWeatherMap API key
+- Configure API key domain restrictions:
+  1. Go to [OpenWeatherMap API Keys](https://home.openweathermap.org/api_keys)
+  2. Click on API key settings
+  3. Add your domains to the authorized domains list:
+     - For local development: `localhost` and `127.0.0.1`
+     - For production: `[your-site-name].netlify.app`
+     - Any custom domains you're using
 
 ```bash
 cp config.example.js config.js
