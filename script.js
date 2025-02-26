@@ -1,7 +1,5 @@
-import config from './config.js';
-
 // API key and base URL
-const API_KEY = config.WEATHER_API_KEY;
+const API_KEY = '96a0ca90de79fb3b9ba220c40d9109ac';  // Your API key
 const BASE_URL = 'https://api.openweathermap.org/data/2.5/weather';
 const DEFAULT_CITY = 'Berlin';
 
@@ -59,15 +57,10 @@ async function getWeather() {
     hideWeatherInfo();
 
     try {
-        const response = await fetch(`${BASE_URL}?q=${city}&appid=${API_KEY}&units=metric`);
+        const response = await fetch(`${BASE_URL}?q=${encodeURIComponent(city)}&appid=${API_KEY}&units=metric`);
         const data = await response.json();
 
         if (!response.ok) {
-            if (response.status === 401) {
-                throw new Error('Invalid API key. Please check your OpenWeatherMap API key configuration.');
-            } else if (response.status === 403) {
-                throw new Error('API access forbidden. Please check your domain is authorized in OpenWeatherMap.');
-            }
             throw new Error(data.message || 'Failed to fetch weather data');
         }
 
